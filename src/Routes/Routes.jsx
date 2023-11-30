@@ -8,6 +8,9 @@ import Register from "../Pages/Register/Register";
 import Dashboard from "../Layout/Dashboard";
 import MyCart from "../DashboardPages/MyCart/MyCart";
 import PrivateRoute from "./PrivateRoute";
+import AllUsers from "../DashboardPages/Admin/AllUsers/AllUsers";
+import AddItem from "../DashboardPages/Admin/AddItem/AddItem";
+import AdminRoute from "./AdminRoute";
 
 export const routes = createBrowserRouter([
     {
@@ -43,7 +46,17 @@ export const routes = createBrowserRouter([
             {
                 path: "mycart",
                 element: <MyCart />
-            }
+            },
+
+            // Addmin routes
+            {
+                path: "allusers",
+                element: <AllUsers />
+            },
+            {
+                path: "additem",
+                element: <AdminRoute><AddItem /></AdminRoute>
+            },
         ]
     }
 ])

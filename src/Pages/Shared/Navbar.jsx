@@ -71,12 +71,17 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{menuLinks}</ul>
         </div>
         <div className="navbar-end">
+          <Link to={"/dashboard"}>
+            <button className="btn btn-sm md:btn-md mr-2">Dash</button>
+          </Link>
+
           <Link to={"/dashboard/mycart"}>
             <button className="btn btn-sm md:btn-md mr-2">
               <MdOutlineShoppingCart className="text-xl" />
               <div className="badge badge-secondary">+{cart.length}</div>
             </button>
           </Link>
+
           {user ? (
             <button onClick={handleLogout} className="btn btn-sm md:btn-md">
               Logout

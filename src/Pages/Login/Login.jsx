@@ -91,7 +91,7 @@ const Login = () => {
                   required
                 />
                 <span
-                  onBlur={() => setShowPass(!showPass)}
+                  onClick={() => setShowPass(!showPass)}
                   className="absolute top-4 right-2 text-xl"
                 >
                   {showPass ? <IoMdEyeOff /> : <IoMdEye />}
