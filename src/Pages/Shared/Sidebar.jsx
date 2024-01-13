@@ -47,7 +47,7 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/dashboard/manageitem"}>
+              <NavLink to={"/dashboard/bookings"}>
                 <FaListUl /> Manage Bookings
               </NavLink>
             </li>
@@ -65,7 +65,7 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/dashboard/reservation"}>
+              <NavLink to={"/dashboard/Payment"}>
                 <FaCalendar /> Reservation
               </NavLink>
             </li>

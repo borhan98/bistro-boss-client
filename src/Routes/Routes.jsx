@@ -11,52 +11,65 @@ import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../DashboardPages/Admin/AllUsers/AllUsers";
 import AddItem from "../DashboardPages/Admin/AddItem/AddItem";
 import AdminRoute from "./AdminRoute";
+import Payment from "../DashboardPages/Payment";
 
 export const routes = createBrowserRouter([
-    {
-        path: "/",
-        element: <Main />,
-        children: [
-            {
-                index: true,
-                element: <Home />
-            },
-            {
-                path: "menu",
-                element: <OurMenu />
-            },
-            {
-                path: "shop/:category",
-                element: <OurShop />
-            },
-            {
-                path: "login",
-                element: <Login />
-            },
-            {
-                path: "register",
-                element: <Register />
-            },
-        ]
-    },
-    {
-        path: "dashboard",
-        element: <PrivateRoute><Dashboard /></PrivateRoute>,
-        children: [
-            {
-                path: "mycart",
-                element: <MyCart />
-            },
+  {
+    path: "/",
+    element: <Main />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "menu",
+        element: <OurMenu />,
+      },
+      {
+        path: "shop/:category",
+        element: <OurShop />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "mycart",
+        element: <MyCart />,
+      },
+      {
+        path: "payment",
+        element: <Payment />
+      },
 
-            // Addmin routes
-            {
-                path: "allusers",
-                element: <AllUsers />
-            },
-            {
-                path: "additem",
-                element: <AdminRoute><AddItem /></AdminRoute>
-            },
-        ]
-    }
-])
+      // Addmin routes
+      {
+        path: "allusers",
+        element: <AdminRoute><AllUsers /></AdminRoute>,
+      },
+      {
+        path: "additem",
+        element: (
+          <AdminRoute>
+            <AddItem />
+          </AdminRoute>
+        ),
+      },
+    ],
+  },
+]);
