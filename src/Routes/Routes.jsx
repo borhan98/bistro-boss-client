@@ -11,7 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../DashboardPages/Admin/AllUsers/AllUsers";
 import AddItem from "../DashboardPages/Admin/AddItem/AddItem";
 import AdminRoute from "./AdminRoute";
-import Payment from "../DashboardPages/Payment";
+import Payment from "../DashboardPages/Payment/Payment";
 
 export const routes = createBrowserRouter([
   {
