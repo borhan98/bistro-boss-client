@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import useCart from "../../Hooks/useCart";
 import useAuth from "../../Hooks/useAuth";
+import moment from "moment";
 
 
 const Checkout = () => {
@@ -15,6 +16,13 @@ const Checkout = () => {
     const [cart] = useCart();
     const { user } = useAuth();
     const totalPrice = cart.reduce((total, current) => total + current.price, 0);
+
+    function getUTCtime() {
+        const offsetMin = new Date().getTimezoneOffset();
+        const utcDate = new Date(new Date().getTime() + (offsetMin * 60 * 1000));
+        const dateFormat = moment(utcDate).format("Do MMM, YYYY");
+        return dateFormat;
+    }
 
     useEffect(() => {
         axiosSecure.post("/create-payment-intent", { price: totalPrice }).then(res => {
@@ -65,6 +73,19 @@ const Checkout = () => {
             if (paymentIntent.status === "succeeded") {
                 console.log(paymentIntent);
                 setTransactionId(paymentIntent.id);
+
+                // Save the payment and order info to database
+                const payment = {
+                    email: user?.email,
+                    price: totalPrice,
+                    transactionId: paymentIntent.id,
+                    menuIds: cart.map(item => item.menuId),
+                    deletedIds: cart.map(item => item._id),
+                    date: getUTCtime(),
+                    status: "pending",
+                }
+                const res = await axiosSecure.post("/payment", payment);
+                console.log(res.data);
             }
         }
     }
