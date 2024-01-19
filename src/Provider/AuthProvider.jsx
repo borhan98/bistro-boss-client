@@ -22,21 +22,25 @@ const AuthProvider = ({ children }) => {
 
   // create new user
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   // handle login user
   const loginUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   // handle logout user
   const logoutUser = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
   // update profile
   const updateUserProfile = (name, photo) => {
+    setLoading(true);
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
@@ -45,6 +49,7 @@ const AuthProvider = ({ children }) => {
 
   // Googel login
   const googleLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
@@ -57,11 +62,12 @@ const AuthProvider = ({ children }) => {
         const userInfo = { email: currentUser.email };
         axiosPublic.post("/jwt", userInfo).then((res) => {
           localStorage.setItem("access-token", res.data.token);
+          setLoading(false);
         });
       } else {
         localStorage.clear("access-token");
+        setLoading(false);
       }
-      setLoading(false);
     });
     return () => {
       return unSubscribe();
