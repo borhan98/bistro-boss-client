@@ -6,12 +6,14 @@ import OurShop from "../Pages/OurShop/OurShop";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Dashboard from "../Layout/Dashboard";
-import MyCart from "../DashboardPages/MyCart/MyCart";
 import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../DashboardPages/Admin/AllUsers/AllUsers";
 import AddItem from "../DashboardPages/Admin/AddItem/AddItem";
 import AdminRoute from "./AdminRoute";
-import Payment from "../DashboardPages/Payment/Payment";
+import MyCart from "../DashboardPages/User/MyCart/MyCart";
+import Payment from "../DashboardPages/User/Payment/Payment";
+import UserHome from "../DashboardPages/User/UserHome";
+import AdminHome from "../DashboardPages/Admin/AdminHome/AdminHome";
 
 export const routes = createBrowserRouter([
   {
@@ -48,6 +50,11 @@ export const routes = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      // User routes
+      {
+        path: "userHome",
+        element: <PrivateRoute><UserHome /></PrivateRoute>
+      },
       {
         path: "mycart",
         element: <MyCart />,
@@ -58,6 +65,10 @@ export const routes = createBrowserRouter([
       },
 
       // Addmin routes
+      {
+        path: "adminHome",
+        element: <AdminRoute><AdminHome /></AdminRoute>
+      },
       {
         path: "allusers",
         element: <AdminRoute><AllUsers /></AdminRoute>,

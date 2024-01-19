@@ -1,9 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import useAxios from "../../Hooks/useAxios";
-import useCart from "../../Hooks/useCart";
-import useAuth from "../../Hooks/useAuth";
 import moment from "moment";
+import toast from "react-hot-toast";
+import useAxios from "../../../Hooks/useAxios";
+import useCart from "../../../Hooks/useCart";
+import useAuth from "../../../Hooks/useAuth";
 
 
 const Checkout = () => {
@@ -13,7 +14,7 @@ const Checkout = () => {
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxios();
-    const [cart] = useCart();
+    const [cart, refetch] = useCart();
     const { user } = useAuth();
     const totalPrice = cart.reduce((total, current) => total + current.price, 0);
 
@@ -25,10 +26,12 @@ const Checkout = () => {
     }
 
     useEffect(() => {
-        axiosSecure.post("/create-payment-intent", { price: totalPrice }).then(res => {
-            console.log(res.data);
-            setClientSecret(res.data.clientSecret);
-        })
+        if (totalPrice) {
+            axiosSecure.post("/create-payment-intent", { price: totalPrice }).then(res => {
+                console.log(res.data);
+                setClientSecret(res.data.clientSecret);
+            })
+        }
     }, [axiosSecure, totalPrice])
 
     const handleSubmit = async (e) => {
@@ -85,7 +88,15 @@ const Checkout = () => {
                     status: "pending",
                 }
                 const res = await axiosSecure.post("/payment", payment);
-                console.log(res.data);
+                refetch();
+                if (res.data?.paymentResult?.insertedId) {
+                    toast.success("Payment success", {
+                        style: {
+                            backgroundColor: "#080808",
+                            color: "#FFF"
+                        }
+                    })
+                }
             }
         }
     }
@@ -106,10 +117,10 @@ const Checkout = () => {
                     }
                 }
             }} />
-            <button className="p-2 justify-self-end rounded-md text-white bg-[#D1A054] w-28 text-lg font-bold mt-6 " type="submit" disabled={!stripe || !clientSecret}>Pay</button>
+            <button className={`p-2 justify-self-end rounded-md text-white w-28 text-lg font-bold mt-6 ${!stripe || !clientSecret ? "bg-[#d19f5454] cursor-not-allowed" : "bg-[#D1A054]"} `} type="submit" disabled={!stripe || !clientSecret}>Pay</button>
             <p><small className="text-red-500">{err}</small></p>
             {
-                transactionId && <p>TransactionID: {transactionId} </p>
+                transactionId && <p className="text-green-400 mt-4">TransactionID: {transactionId} </p>
             }
         </form>
     );

@@ -4,10 +4,12 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import useCart from "../../Hooks/useCart";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const [cart] = useCart();
+  const [isAdmin] = useAdmin();
 
   // Handle logout user
   const handleLogout = () => {
@@ -71,9 +73,16 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{menuLinks}</ul>
         </div>
         <div className="navbar-end">
-          <Link to={"/dashboard"}>
+          {/* <Link to={"/dashboard"}>
             <button className="btn btn-sm md:btn-md mr-2">Dash</button>
-          </Link>
+          </Link> */}
+          {
+            user ? isAdmin ? <Link to={"/dashboard/adminHome"}>
+              <button className="btn btn-sm md:btn-md mr-2">Dashboard</button>
+            </Link> : <Link to={"/dashboard/userHome"}>
+              <button className="btn btn-sm md:btn-md mr-2">Dashboard</button>
+            </Link> : ""
+          }
 
           <Link to={"/dashboard/mycart"}>
             <button className="btn btn-sm md:btn-md mr-2">

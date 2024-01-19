@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import SectionTitle from "../../Components/SectionTitle";
-import useCart from "../../Hooks/useCart";
 import CartItem from "./CartItem";
+import SectionTitle from "../../../Components/SectionTitle";
+import useCart from "../../../Hooks/useCart";
 
 const MyCart = () => {
   const [cart, refetch] = useCart();
@@ -14,9 +14,13 @@ const MyCart = () => {
         <div className="grid md:grid-cols-3 items-center">
           <h3 className="text-xl font-bold">Total Orders: {cart.length} </h3>
           <h3 className="text-xl font-bold">Total Price: {totalPrice} </h3>
-          <button className={`p-2 justify-self-end rounded-md text-white bg-[#D1A054] w-fit text-lg font-bold ${cart.length ? "" : "bg-[#fbdbaa] cursor-not-allowed"}`} disabled={cart.length ? false : true}>
-            <Link to={"/dashboard/payment"}>Pay</Link>
-          </button>
+          <div className="flex justify-end">
+            <Link to={"/dashboard/payment"}>
+              <button className={`p-2 justify-self-end rounded-md text-white bg-[#D1A054] w-fit text-lg font-bold ${cart.length ? "" : "bg-[#fbdbaa] cursor-not-allowed"}`} disabled={cart.length ? false : true}>
+                Pay
+              </button>
+            </Link>
+          </div>
         </div>
         <table className="table mt-6">
           <thead>

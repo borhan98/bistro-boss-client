@@ -1,7 +1,7 @@
 import { Elements } from '@stripe/react-stripe-js';
-import SectionTitle from '../../Components/SectionTitle';
 import { loadStripe } from '@stripe/stripe-js';
 import Checkout from './Checkout';
+import SectionTitle from '../../../Components/SectionTitle';
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_PK); // TODO: add publishable key
 

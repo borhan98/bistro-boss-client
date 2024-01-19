@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
-import useAxios from "../../Hooks/useAxios";
+import useAxios from "../../../Hooks/useAxios";
 
 const CartItem = ({ item, index, refetch }) => {
   const { _id, image, name, price } = item;

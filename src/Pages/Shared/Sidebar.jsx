@@ -104,7 +104,7 @@ const Sidebar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to={"/ourshop"}>
+          <NavLink to={"/shop/salad"}>
             <FaShopify /> Shop
           </NavLink>
         </li>
