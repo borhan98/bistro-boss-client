@@ -12,8 +12,8 @@ import AddItem from "../DashboardPages/Admin/AddItem/AddItem";
 import AdminRoute from "./AdminRoute";
 import MyCart from "../DashboardPages/User/MyCart/MyCart";
 import Payment from "../DashboardPages/User/Payment/Payment";
-import UserHome from "../DashboardPages/User/UserHome";
 import AdminHome from "../DashboardPages/Admin/AdminHome/AdminHome";
+import UserHome from "../DashboardPages/User/UserHome/UserHome";
 
 export const routes = createBrowserRouter([
   {
